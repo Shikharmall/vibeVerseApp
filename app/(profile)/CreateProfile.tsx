@@ -64,7 +64,7 @@ export default function CreateProfile() {
     }: any) => (
         <View style={styles.inputContainer}>
             <View style={styles.inputWrapper}>
-                <MaterialIcons name={Icon} size={20} color={Colors.icon} style={styles.inputIcon} />
+                <MaterialIcons name={Icon} size={20} color={Colors.icon.color} style={styles.inputIcon} />
                 <TextInput
                     style={[styles.input, multiline && styles.multilineInput]}
                     placeholder={placeholder}

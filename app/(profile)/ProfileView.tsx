@@ -37,7 +37,7 @@ export default function ProfileView() {
         return (
             <View style={styles.infoItem}>
                 <View style={styles.infoIcon}>
-                    <MaterialIcons name={Icon} size={20} color={Colors.icon} />
+                    <MaterialIcons name={Icon} size={20} color={Colors.icon.color} />
                 </View>
                 <View style={styles.infoContent}>
                     <Text style={styles.infoLabel}>{label}</Text>
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: Colors.iconBackground,
+        backgroundColor: Colors.icon.background,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 16,

@@ -49,10 +49,13 @@ export default function Home() {
                             source={{ uri: '/placeholder.svg?height=200&width=200&text=Welcome' }}
                             style={styles.illustrationImage}
                         /> */}
-                        <View style={styles.illustrationImage}>
-                            {/* <WavesIconBox /> */}
+                        <Image
+                            source={{ uri: 'https://vibevers.co/lovable-uploads/pexels-katerina-holmes-5910749.jpg' }}
+                            style={styles.illustrationImage}
+                        />
+                        {/* <View style={styles.illustrationImage}>
                             <MaterialIcons name="person" size={40} color="#ffffff" />
-                        </View>
+                        </View> */}
                     </View>
 
                     <View style={styles.buttonContainer}>
@@ -159,7 +162,8 @@ const styles = StyleSheet.create({
     illustrationImage: {
         width: 180,
         height: 180,
-        borderRadius: 90,
+        //borderRadius: 90,
+        borderRadius: 10,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
     },
     buttonContainer: {

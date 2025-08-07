@@ -6,8 +6,8 @@ export const Colors = {
   backgroundColor: '#f9f4f5ff',
   green: '#48bb78',
   white: '#ffffff',
-  icon: '#e145a2',
-  iconBackground: '#faeef5ff',
-  bluee: '#667eea',
-  blueeBg: 'rgba(102, 126, 234, 0.1)'
+  icon: {
+    color: '#e145a2',
+    background: '#faeef5ff'
+  },
 };

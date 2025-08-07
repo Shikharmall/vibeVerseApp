@@ -85,7 +85,7 @@ export default function ChatScreen() {
     //     isOnline: boolean;
     // };
 
-    const userAvatar = 'https://avatar.iran.liara.run/public/92';
+    const userAvatar = 'https://avatar.iran.liara.run/public/8';
 
     useEffect(() => {
         // Simulate typing indicator
@@ -166,7 +166,7 @@ export default function ChatScreen() {
                             <Text style={styles.userStatus}>
                                 Chat with
                             </Text>
-                            <Text style={styles.userName}>VibeVerse</Text>
+                            <Text style={styles.userName}>Alex</Text>
                         </View>
                     </View>
 
