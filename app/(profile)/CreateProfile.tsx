@@ -64,7 +64,7 @@ export default function CreateProfile() {
     }: any) => (
         <View style={styles.inputContainer}>
             <View style={styles.inputWrapper}>
-                <MaterialIcons name={Icon} size={20} color="#c288efff" style={styles.inputIcon} />
+                <MaterialIcons name={Icon} size={20} color={Colors.icon} style={styles.inputIcon} />
                 <TextInput
                     style={[styles.input, multiline && styles.multilineInput]}
                     placeholder={placeholder}
@@ -86,7 +86,7 @@ export default function CreateProfile() {
     return (
         <SafeAreaView style={styles.container}>
             <LinearGradient
-                colors={[Colors.from, Colors.to]}
+                colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.header}

@@ -111,7 +111,7 @@ export default function NoFoundScreen({
           ]}
         >
           <LinearGradient
-            colors={[Colors.from, Colors.to]}
+            colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 1 }}
             style={styles.iconGradient}

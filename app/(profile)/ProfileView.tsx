@@ -37,7 +37,7 @@ export default function ProfileView() {
         return (
             <View style={styles.infoItem}>
                 <View style={styles.infoIcon}>
-                    <MaterialIcons name={Icon} size={20} color="#667eea" />
+                    <MaterialIcons name={Icon} size={20} color={Colors.icon} />
                 </View>
                 <View style={styles.infoContent}>
                     <Text style={styles.infoLabel}>{label}</Text>
@@ -50,7 +50,7 @@ export default function ProfileView() {
     return (
         <SafeAreaView style={styles.container}>
             <LinearGradient
-                colors={[Colors.from, Colors.to]}
+                colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.header}
@@ -120,26 +120,26 @@ export default function ProfileView() {
                 <View style={styles.actionButtons}>
                     <TouchableOpacity
                         style={styles.primaryActionButton}
-                        onPress={() => navigation.navigate('Chat' as never)}
+                        onPress={() => navigation.navigate('Home' as never)}
                         activeOpacity={0.8}
                     >
                         <LinearGradient
-                            colors={[Colors.from, Colors.to]}
+                            colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 1 }}
                             style={styles.actionButtonGradient}
                         >
-                            <Text style={styles.actionButtonText}>Start Chatting</Text>
+                            <Text style={styles.actionButtonText}>Back to Home</Text>
                         </LinearGradient>
                     </TouchableOpacity>
 
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={styles.secondaryActionButton}
                         onPress={() => navigation.navigate('Home' as never)}
                         activeOpacity={0.8}
                     >
                         <Text style={styles.secondaryActionText}>Back to Home</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
             </ScrollView>
         </SafeAreaView>
@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+        backgroundColor: Colors.iconBackground,
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: 16,

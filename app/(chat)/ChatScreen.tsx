@@ -146,7 +146,7 @@ export default function ChatScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <LinearGradient
-                colors={[Colors.from, Colors.to]}
+                colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.header}
@@ -217,7 +217,7 @@ export default function ChatScreen() {
                         </TouchableOpacity>
                     </View>
                     <LinearGradient
-                        colors={[Colors.from, Colors.to]}
+                        colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
                         style={[
                             styles.sendButton,
                             inputText.trim() && styles.sendButtonActive,
