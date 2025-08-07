@@ -25,7 +25,7 @@ const WavesIconBox: React.FC<WavesIconBoxProps> = ({ width = 50, height = 50 }) 
       ])
     ).start();
 
-    // Rotate back and forth from -10° to +90°
+    // Rotate back and forth from -10° to +10°
     Animated.loop(
       Animated.sequence([
         Animated.timing(rotateAnim, {
@@ -44,7 +44,7 @@ const WavesIconBox: React.FC<WavesIconBoxProps> = ({ width = 50, height = 50 }) 
 
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ['-30deg', '30deg'], // Rotate between -10 and +90 degrees
+    outputRange: ['-10deg', '10deg'], // Rotate between -10 and +10 degrees
   });
 
   return (
