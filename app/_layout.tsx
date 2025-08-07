@@ -19,11 +19,16 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <StatusBar style="auto" />
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="Home" options={{ headerShown: false }} />
+        <Stack.Screen name="(profile)" options={{ headerShown: false }} />
+        {/* <Stack.Screen name="ProfileForm" options={{ headerShown: false }} />
+        <Stack.Screen name="ProfileView" options={{ headerShown: false }} />
+        <Stack.Screen name="ProfileCard" options={{ headerShown: false }} /> */}
+        <Stack.Screen name="(chat)" options={{ headerShown: false }} />
         <Stack.Screen name="+not-found" />
       </Stack>
-      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
