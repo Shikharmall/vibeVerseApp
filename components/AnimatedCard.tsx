@@ -1,11 +1,7 @@
+import { AnimatedCardProps } from '@/constants/Entity';
 import React, { useEffect, useRef } from 'react';
-import { View, Animated, StyleSheet, ViewStyle } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 
-interface AnimatedCardProps {
-  children: React.ReactNode;
-  delay?: number;
-  style?: ViewStyle;
-}
 
 export default function AnimatedCard({ children, delay = 0, style }: AnimatedCardProps) {
   const fadeAnim = useRef(new Animated.Value(0)).current;

@@ -18,16 +18,7 @@ import TypingIndicator from '../../components/TypingIndicator';
 import WavesIconBox from '@/components/ui/WavesIconBox';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
-
-interface Message {
-    id: string;
-    text: string;
-    timestamp: Date;
-    isOwn: boolean;
-    status: 'sending' | 'sent' | 'delivered' | 'read';
-    type: 'text' | 'image' | 'voice';
-    imageUrl?: string;
-}
+import { Message } from '@/constants/Entity';
 
 const mockMessages: Message[] = [
     {

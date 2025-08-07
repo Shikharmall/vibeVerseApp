@@ -10,15 +10,7 @@ import {
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from '@/constants/Colors';
-
-interface NoFoundScreenProps {
-  searchQuery?: string;
-  onClearSearch?: () => void;
-  onRefresh?: () => void;
-  onAddNew?: () => void;
-  onResetFilters?: () => void;
-  type?: 'search' | 'filter' | 'empty';
-}
+import { NoFoundScreenProps } from '@/constants/Entity';
 
 export default function NoFoundScreen({
   searchQuery = '',

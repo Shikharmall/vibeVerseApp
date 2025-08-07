@@ -1,3 +1,4 @@
+import { TypingIndicatorProps } from '@/constants/Entity';
 import React, { useEffect, useRef } from 'react';
 import {
   View,
@@ -6,10 +7,6 @@ import {
   Image,
   Animated,
 } from 'react-native';
-
-interface TypingIndicatorProps {
-  userAvatar: string;
-}
 
 export default function TypingIndicator({ userAvatar }: TypingIndicatorProps) {
   const dot1 = useRef(new Animated.Value(0)).current;

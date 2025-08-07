@@ -7,22 +7,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-interface Message {
-    id: string;
-    text: string;
-    timestamp: Date;
-    isOwn: boolean;
-    status: 'sending' | 'sent' | 'delivered' | 'read';
-    type: 'text' | 'image' | 'voice';
-    imageUrl?: string;
-}
-
-interface MessageBubbleProps {
-    message: Message;
-    showAvatar: boolean;
-    userAvatar: string;
-}
+import { MessageBubbleProps } from '@/constants/Entity';
 
 export default function MessageBubble({ message, showAvatar, userAvatar }: MessageBubbleProps) {
     const formatTime = (date: Date) => {

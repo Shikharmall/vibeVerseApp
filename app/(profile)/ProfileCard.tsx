@@ -7,27 +7,8 @@ import {
     Image,
     Animated,
 } from 'react-native';
-// import { MapPin, Mail, MessageCircle, Heart } from 'lucide-react-native';
-// import { UserProfile } from '../App';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-
-interface UserProfile {
-    id: string;
-    name: string;
-    email: string;
-    bio: string;
-    avatar: string;
-    phone: string;
-    location: string;
-    website: string;
-    joinDate: string;
-}
-
-interface ProfileCardProps {
-    profile: UserProfile;
-    onPress: () => void;
-    delay?: number;
-}
+import { ProfileCardProps } from '@/constants/Entity';
 
 export default function ProfileCard({ profile, onPress, delay = 0 }: ProfileCardProps) {
     const fadeAnim = useRef(new Animated.Value(0)).current;

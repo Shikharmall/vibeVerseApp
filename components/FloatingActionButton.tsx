@@ -4,11 +4,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-interface FloatingActionButtonProps {
-  onPress: () => void;
-  icon: React.ReactNode;
-}
+import { FloatingActionButtonProps } from '@/constants/Entity';
 
 export default function FloatingActionButton({ onPress, icon }: FloatingActionButtonProps) {
   return (

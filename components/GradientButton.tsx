@@ -1,15 +1,8 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, ViewStyle, TextStyle } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-
-interface GradientButtonProps {
-    title: string;
-    onPress: () => void;
-    disabled?: boolean;
-    colors?: string[];
-    style?: ViewStyle;
-    textStyle?: TextStyle;
-}
+import { GradientButtonProps } from '@/constants/Entity';
+import { Colors } from '@/constants/Colors';
 
 export default function GradientButton({
     title,
@@ -27,7 +20,7 @@ export default function GradientButton({
             activeOpacity={0.8}
         >
             <LinearGradient
-                colors={['#667eea', '#764ba2']}
+                colors={[Colors.from, Colors.to]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 1 }}
                 style={styles.gradient}

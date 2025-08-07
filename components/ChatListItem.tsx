@@ -1,3 +1,4 @@
+import { ChatListItemProps } from '@/constants/Entity';
 import React from 'react';
 import {
     View,
@@ -6,23 +7,6 @@ import {
     StyleSheet,
     Image,
 } from 'react-native';
-// import { Chat } from '../App';
-
-interface Chat {
-    id: string;
-    userName: string;
-    userAvatar: string;
-    lastMessage: string;
-    timestamp: Date;
-    unreadCount: number;
-    isOnline: boolean;
-    isTyping: boolean;
-}
-
-interface ChatListItemProps {
-    chat: Chat;
-    onPress: () => void;
-}
 
 export default function ChatListItem({ chat, onPress }: ChatListItemProps) {
     const formatTime = (date: Date) => {

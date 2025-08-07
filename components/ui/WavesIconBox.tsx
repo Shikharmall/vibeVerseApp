@@ -2,11 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { Animated, StyleSheet, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
+import { WavesIconBoxProps } from '@/constants/Entity';
 
-interface WavesIconBoxProps {
-  width?: number;
-  height?: number;
-}
 
 const WavesIconBox: React.FC<WavesIconBoxProps> = ({ width = 50, height = 50 }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;

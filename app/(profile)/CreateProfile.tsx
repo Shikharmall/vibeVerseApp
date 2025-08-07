@@ -15,18 +15,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from '@/constants/Colors';
-
-interface UserProfile {
-    id: string;
-    name: string;
-    email: string;
-    bio: string;
-    avatar: string;
-    phone: string;
-    location: string;
-    website: string;
-    joinDate: string;
-}
+import { UserProfile } from '@/constants/Entity';
 
 export default function CreateProfile() {
     const navigation = useNavigation();

@@ -4,24 +4,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 // import { Edit3 } from 'lucide-react-native';
 // import { UserProfile } from '../App';
 import Svg, { Path } from 'react-native-svg';
+import { UserProfile, ProfileHeaderProps } from '@/constants/Entity';
 
 
-interface UserProfile {
-    id: string;
-    name: string;
-    email: string;
-    bio: string;
-    avatar: string;
-    phone: string;
-    location: string;
-    website: string;
-    joinDate: string;
-}
-
-interface ProfileHeaderProps {
-    user: UserProfile;
-    onEditPress: () => void;
-}
 
 export default function ProfileHeader({ user, onEditPress }: ProfileHeaderProps) {
     return (
