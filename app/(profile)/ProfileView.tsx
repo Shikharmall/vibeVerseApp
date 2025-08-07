@@ -12,16 +12,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from '@/constants/Colors';
-// import { 
-//   ArrowLeft, 
-//   Edit3, 
-//   Mail, 
-//   Phone, 
-//   MapPin, 
-//   FileText,
-//   CheckCircle 
-// } from 'lucide-react-native';
-// import { UserProfile } from '../App';
 
 interface UserProfile {
     id: string;
@@ -37,10 +27,9 @@ interface UserProfile {
 
 export default function ProfileView() {
     const navigation = useNavigation();
-    const route = useRoute();
+    // const route = useRoute();
     // const { profileData } = route.params as { profileData: UserProfile };
-
-    const profileData = {
+    const profileData: UserProfile = {
         id: '555',
         name: 'Shivam Gupta',
         email: 'shivam@gmail.com',
@@ -80,14 +69,14 @@ export default function ProfileView() {
                     style={styles.backButton}
                     onPress={() => navigation.goBack()}
                 >
-                    <MaterialIcons name="arrow-left" size={24} color="#ffffff" />
+                    <MaterialIcons name="arrow-left" size={24} color={Colors.white} />
                 </TouchableOpacity>
 
                 <View style={styles.profileHeader}>
                     <View style={styles.avatarContainer}>
                         <Image source={{ uri: profileData.avatar }} style={styles.avatar} />
                         <View style={styles.successBadge}>
-                            <MaterialIcons name="check-circle" size={20} color="#ffffff" />
+                            <MaterialIcons name="check-circle" size={20} color={Colors.white} />
                         </View>
                     </View>
 
@@ -95,7 +84,7 @@ export default function ProfileView() {
                     <Text style={styles.profileEmail}>{profileData.email}</Text>
 
                     <TouchableOpacity style={styles.editButton}>
-                        <MaterialIcons name="edit" size={16} color="#ffffff" />
+                        <MaterialIcons name="edit" size={16} color={Colors.white} />
                         <Text style={styles.editButtonText}>Edit Profile</Text>
                     </TouchableOpacity>
                 </View>
@@ -103,7 +92,7 @@ export default function ProfileView() {
 
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <View style={styles.successMessage}>
-                    <MaterialIcons name="check-circle" size={24} color="#48bb78" />
+                    <MaterialIcons name="check-circle" size={24} color={Colors.green} />
                     <Text style={styles.successText}>Profile Created Successfully!</Text>
                     <Text style={styles.successSubtext}>
                         Your profile has been saved and is ready to use.
@@ -145,7 +134,7 @@ export default function ProfileView() {
                         activeOpacity={0.8}
                     >
                         <LinearGradient
-                            colors={['#ed8936', '#dd6b20']}
+                            colors={[Colors.from, Colors.to]}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 1 }}
                             style={styles.actionButtonGradient}
@@ -170,7 +159,7 @@ export default function ProfileView() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8fafc',
+        backgroundColor: Colors.backgroundColor,
     },
     header: {
         paddingTop: 20,
@@ -203,7 +192,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 0,
         right: 0,
-        backgroundColor: '#48bb78',
+        backgroundColor: Colors.green,
         borderRadius: 15,
         width: 30,
         height: 30,

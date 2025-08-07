@@ -95,7 +95,6 @@ export default function ChatScreen() {
     // };
 
     const userAvatar = 'https://avatar.iran.liara.run/public/92';
-    const isOnline = true;
 
     useEffect(() => {
         // Simulate typing indicator
@@ -166,7 +165,7 @@ export default function ChatScreen() {
                         style={styles.backButton}
                         onPress={() => navigation.goBack()}
                     >
-                        <MaterialIcons name="arrow-left" size={24} color="#ffffff" />
+                        <MaterialIcons name="arrow-left" size={24} color={Colors.white} />
                     </TouchableOpacity>
 
 
@@ -182,14 +181,8 @@ export default function ChatScreen() {
 
                     <View style={styles.headerActions}>
                         <TouchableOpacity style={styles.actionButton}>
-                            <MaterialIcons name="call" size={30} color="#ffffff" />
+                            <MaterialIcons name="call" size={30} color={Colors.white} />
                         </TouchableOpacity>
-                        {/* <TouchableOpacity style={styles.actionButton}>
-                            <MaterialIcons name="videocam" size={20} color="#ffffff" />
-                        </TouchableOpacity> */}
-                        {/* <TouchableOpacity style={styles.actionButton}>
-                            <MaterialIcons name="arrow-drop-down-circle" size={30} color="#ffffff" />
-                        </TouchableOpacity> */}
                     </View>
                 </View>
             </LinearGradient>
@@ -215,8 +208,6 @@ export default function ChatScreen() {
                 <View style={styles.inputContainer}>
                     <View style={styles.inputWrapper}>
                         <TouchableOpacity style={styles.attachButton}>
-                            {/* <MaterialIcons name="smartphone" size={20} color="#667eea" /> */}
-                            {/* <Paperclip size={20} color="#667eea" /> */}
                             <MaterialCommunityIcons name="paperclip" size={24} color="#555" />
                         </TouchableOpacity>
 
@@ -231,20 +222,11 @@ export default function ChatScreen() {
                         />
 
                         <TouchableOpacity style={styles.emojiButton}>
-                            {/* <MaterialIcons name="smile" size={20} color="#667eea" /> */}
-                            {/* <Text>Smile</Text> */}
+                            <MaterialCommunityIcons name="emoticon-happy-outline" size={25} color="#667eea" />
                         </TouchableOpacity>
                     </View>
-
-                    {/* <TouchableOpacity
-                        style={[styles.sendButton, inputText.trim() && styles.sendButtonActive]}
-                        onPress={sendMessage}
-                        disabled={!inputText.trim()}
-                    >
-                        <MaterialIcons name="send" size={20} color="#ffffff" />
-                    </TouchableOpacity> */}
                     <LinearGradient
-                        colors={['#e145a2', '#9834e4']}
+                        colors={[Colors.from, Colors.to]}
                         style={[
                             styles.sendButton,
                             inputText.trim() && styles.sendButtonActive,
@@ -258,7 +240,7 @@ export default function ChatScreen() {
                             disabled={!inputText.trim()}
                             activeOpacity={0.8}
                         >
-                            <MaterialIcons name="send" size={20} color="#ffffff" />
+                            <MaterialIcons name="send" size={20} color={Colors.white} />
                         </TouchableOpacity>
                     </LinearGradient>
                 </View>
@@ -270,8 +252,7 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f9f4f5ff',
-        // backgroundColor: '#f8fafc',
+        backgroundColor: Colors.backgroundColor,
     },
     header: {
         paddingTop: 50,

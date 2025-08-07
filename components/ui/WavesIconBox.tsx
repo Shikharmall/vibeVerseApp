@@ -3,7 +3,12 @@ import { Animated, StyleSheet, ViewStyle } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const WavesIconBox: React.FC = () => {
+interface WavesIconBoxProps {
+  width?: number;
+  height?: number;
+}
+
+const WavesIconBox: React.FC<WavesIconBoxProps> = ({ width = 50, height = 50 }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
@@ -49,7 +54,7 @@ const WavesIconBox: React.FC = () => {
   return (
     <LinearGradient
       colors={['#f9a8d4', '#d8b4fe']}
-      style={styles.container}
+      style={[styles.container, { width, height }]}
     >
       <Animated.View
         style={{
@@ -60,8 +65,8 @@ const WavesIconBox: React.FC = () => {
         }}
       >
         <Svg
-          width={20}
-          height={20}
+          width={25}
+          height={25}
           viewBox="0 0 24 24"
           fill="none"
           stroke="white"

@@ -9,9 +9,12 @@ const tintColorDark = '#fff';
 export const Colors = {
   from: '#e145a2',
   to: '#9834e4',
+  backgroundColor: '#f9f4f5ff',
+  green: '#48bb78',
+  white: '#ffffff',
   light: {
     text: '#11181C',
-    background: '#fff',
+    background: '#ffffff',
     tint: tintColorLight,
     icon: '#687076',
     tabIconDefault: '#687076',

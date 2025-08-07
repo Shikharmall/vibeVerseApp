@@ -28,7 +28,7 @@ interface UserProfile {
     joinDate: string;
 }
 
-export default function ProfileForm() {
+export default function CreateProfile() {
     const navigation = useNavigation();
     const [formData, setFormData] = useState<UserProfile>({
         id: '555',
@@ -106,7 +106,7 @@ export default function ProfileForm() {
                     style={styles.backButton}
                     onPress={() => navigation.goBack()}
                 >
-                    <MaterialIcons name="arrow-left" size={24} color="#ffffff" />
+                    <MaterialIcons name="arrow-left" size={24} color={Colors.white} />
                 </TouchableOpacity>
 
                 <Text style={styles.headerTitle}>Create Profile</Text>
@@ -208,7 +208,7 @@ export default function ProfileForm() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f8fafc',
+        backgroundColor: Colors.backgroundColor,
     },
     header: {
         paddingTop: 20,
