@@ -4,7 +4,6 @@ import Svg, { Path } from 'react-native-svg';
 import { LinearGradient } from 'expo-linear-gradient';
 import { WavesIconBoxProps } from '@/constants/Entity';
 
-
 const WavesIconBox: React.FC<WavesIconBoxProps> = ({ width = 50, height = 50 }) => {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const rotateAnim = useRef(new Animated.Value(0)).current;

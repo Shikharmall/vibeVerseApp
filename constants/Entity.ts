@@ -28,11 +28,6 @@ export interface UserProfile {
     joinDate: string;
 }
 
-export interface ProfileHeaderProps {
-    user: UserProfile;
-    onEditPress: () => void;
-}
-
 export interface ProfileCardProps {
     profile: UserProfile;
     onPress: () => void;
