@@ -26,8 +26,6 @@ export default function CreateProfile() {
     const navigation = useNavigation();
 
     const [loading, setLoading] = useState(false);
-    const [isErrorEmail, setIsErrorEmail] = useState(false);
-    const [isErrorPhone, setIsErrorPhone] = useState(false);
 
     const [formData, setFormData] = useState<UserProfile>({
         name: '',
@@ -99,7 +97,7 @@ export default function CreateProfile() {
                 style={styles.header}
             >
 
-                <View style={{}}>
+                <View style={{backgroundColor: 'red'}}>
 
                     <TouchableOpacity
                         style={styles.backButton}
