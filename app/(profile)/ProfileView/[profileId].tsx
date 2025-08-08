@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
-    Image,
-} from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
-import { useLocalSearchParams } from 'expo-router';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import ZoomingIcon from '@/components/ui/ZoomingIcon';
 import { Colors } from '@/constants/Colors';
 import { UserProfile } from '@/constants/Entity';
-import { getDoc, doc } from 'firebase/firestore';
-import { db } from '../../../assets/firebaseConfig';
-import ZoomingIcon from '@/components/ui/ZoomingIcon';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useLocalSearchParams } from 'expo-router';
+import { doc, getDoc } from 'firebase/firestore';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+    Image,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View,
+    BackHandler,
+} from 'react-native';
+import { db } from '../../../utils/firebaseConfig';
 
 export default function ProfileView() {
     const navigation = useNavigation();
@@ -45,6 +46,23 @@ export default function ProfileView() {
         }
     }, [profileId]);
 
+    const backAction = () => {
+        navigation.navigate('Home' as never)
+        return true;
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+            const backHandler = BackHandler.addEventListener(
+                "hardwareBackPress",
+                backAction
+            );
+
+            return () => backHandler.remove();
+        }, [])
+    );
+
+
     const InfoItem = ({ icon: Icon, label, value }: any) => {
         if (!value) return null;
 
@@ -71,7 +89,7 @@ export default function ProfileView() {
             >
                 <TouchableOpacity
                     style={styles.backButton}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate('Home' as never)}
                 >
                     <MaterialIcons name="arrow-left" size={24} color={Colors.white} />
                 </TouchableOpacity>

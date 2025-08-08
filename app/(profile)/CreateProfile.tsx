@@ -1,25 +1,25 @@
+import { Colors } from '@/constants/Colors';
+import { UserProfile } from '@/constants/Entity';
+import { isValidEmail, isValidPhone, isValidWebsite } from '@/constants/Validation';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { router } from 'expo-router';
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useState } from 'react';
 import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
     Alert,
     KeyboardAvoidingView,
     Platform,
+    SafeAreaView,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { Colors } from '@/constants/Colors';
-import { UserProfile } from '@/constants/Entity';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../assets/firebaseConfig';
-import { router } from 'expo-router';
-import { isValidEmail, isValidPhone, isValidWebsite } from '@/constants/Validation';
+import { db } from '../../utils/firebaseConfig';
 
 export default function CreateProfile() {
 

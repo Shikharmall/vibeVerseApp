@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     View,
     Text,
@@ -7,13 +7,14 @@ import {
     SafeAreaView,
     ImageBackground,
     Dimensions,
+    BackHandler,
+    Alert,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from '@/constants/Colors';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { BlurView } from 'expo-blur';
 import WavesIconBox from '@/components/ui/WavesIconBox';
 
 const { height } = Dimensions.get('window');
@@ -28,6 +29,29 @@ export default function Home() {
     const navigateToChat = () => {
         navigation.navigate('(chat)' as never);
     };
+
+    const backAction = () => {
+        Alert.alert("Hold on!", "Are you sure you want to exit app?", [
+            {
+                text: "Cancel",
+                onPress: () => null,
+                style: "cancel",
+            },
+            { text: "YES", onPress: () => BackHandler.exitApp() },
+        ]);
+        return true;
+    };
+
+    useFocusEffect(
+        useCallback(() => {
+            const backHandler = BackHandler.addEventListener(
+                "hardwareBackPress",
+                backAction
+            );
+
+            return () => backHandler.remove();
+        }, [])
+    );
 
     return (
         <SafeAreaProvider>
@@ -159,9 +183,9 @@ const styles = StyleSheet.create({
     header: {
         alignItems: 'center',
         marginTop: 20,
-    }, 
+    },
     iconContainer: {
-        width:  80,
+        width: 80,
         height: 80,
         borderRadius: 40,
         justifyContent: 'center',
