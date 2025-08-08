@@ -54,6 +54,11 @@ export default function CreateProfile() {
             return;
         }
 
+        if (formData?.website !== "" && !isValidWebsite(formData?.website)) {
+            Alert.alert('Error', 'Please fill correct website.');
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -97,7 +102,7 @@ export default function CreateProfile() {
                 style={styles.header}
             >
 
-                <View style={{backgroundColor: 'red'}}>
+                <View style={{ backgroundColor: 'red' }}>
 
                     <TouchableOpacity
                         style={styles.backButton}
@@ -143,12 +148,7 @@ export default function CreateProfile() {
                                 placeholder="Email Address *"
                                 placeholderTextColor="#a0aec0"
                                 value={formData?.email}
-                                onChangeText={(text: string) => {
-
-                                    setFormData({ ...formData, email: text });
-                                    const check = isValidEmail(text);
-
-                                }}
+                                onChangeText={(text: string) => setFormData({ ...formData, email: text })}
                                 keyboardType="email-address"
                             />
                         </View>
@@ -185,7 +185,7 @@ export default function CreateProfile() {
                         <View style={styles.inputWrapper}>
                             <MaterialIcons name='web' size={20} color={Colors.icon.color} style={styles.inputIcon} />
                             <TextInput
-                                style={[styles.input, { color: isValidWebsite(formData?.website) ? '#2d3748' : 'red' }]} //, { color: isValidURL(formData?.website) ? '#2d3748' : 'red' }
+                                style={[styles.input, { color: isValidWebsite(formData?.website) ? '#2d3748' : 'red' }]}
                                 placeholder="Enter website"
                                 placeholderTextColor="#a0aec0"
                                 value={formData?.website}
