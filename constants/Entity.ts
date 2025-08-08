@@ -58,20 +58,6 @@ export interface NoFoundScreenProps {
     type?: 'search' | 'filter' | 'empty';
 }
 
-export interface FloatingActionButtonProps {
-    onPress: () => void;
-    icon: React.ReactNode;
-}
-
-export interface GradientButtonProps {
-    title: string;
-    onPress: () => void;
-    disabled?: boolean;
-    colors?: string[];
-    style?: ViewStyle;
-    textStyle?: TextStyle;
-}
-
 export interface TypingIndicatorProps {
     userAvatar: string;
 }
@@ -81,12 +67,6 @@ export interface WavesIconBoxProps {
     height?: number;
     svgWidth?: number;
     svgHeight?: number;
-}
-
-export interface AnimatedCardProps {
-    children: React.ReactNode;
-    delay?: number;
-    style?: ViewStyle;
 }
 
 export type RootStackParamList = {
