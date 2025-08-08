@@ -5,7 +5,7 @@
 1. Get code in your local system
 
    ```git bash
-   git clone https://github.com/Shikharmall/vibeVerseApp
+   git clone https://github.com/Shikharmall/vibeVerseApp.git
    ```
    
 2. Install dependencies
