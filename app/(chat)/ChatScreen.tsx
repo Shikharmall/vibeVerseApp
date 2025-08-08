@@ -77,14 +77,7 @@ export default function ChatScreen() {
     const [inputText, setInputText] = useState('');
     const [isTyping, setIsTyping] = useState(false);
     const navigation = useNavigation();
-    const route = useRoute();
     const flatListRef = useRef<FlatList>(null);
-
-    // const { userName, userAvatar, isOnline } = route.params as {
-    //     userName: string;
-    //     userAvatar: string;
-    //     isOnline: boolean;
-    // };
 
     const userAvatar = 'https://avatar.iran.liara.run/public/8';
 
@@ -163,7 +156,7 @@ export default function ChatScreen() {
 
 
                         <View style={styles.userInfo}>
-                            <WavesIconBox width={50} height={50} svgWidth={25} svgHeight={25}/>
+                            <WavesIconBox width={50} height={50} svgWidth={25} svgHeight={25} />
                             <View style={styles.userDetails}>
                                 <Text style={styles.userStatus}>
                                     Chat with

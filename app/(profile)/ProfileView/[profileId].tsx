@@ -168,8 +168,9 @@ const styles = StyleSheet.create({
     },
     backButton: {
         alignSelf: 'flex-start',
-        marginBottom: 20,
-        padding: 5,
+        // marginBottom: 20,
+        // padding: 5,
+        marginTop: 30
     },
     profileHeader: {
         alignItems: 'center',

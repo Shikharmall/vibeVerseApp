@@ -102,7 +102,7 @@ export default function CreateProfile() {
                 style={styles.header}
             >
 
-                <View style={{ backgroundColor: 'red' }}>
+                <View>
 
                     <TouchableOpacity
                         style={styles.backButton}
@@ -246,11 +246,13 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 25,
         borderBottomRightRadius: 25,
     },
+    headerContent: {
+        flexDirection: 'row',
+    },
     backButton: {
-        alignSelf: 'flex-start',
-        marginBottom: 8,
-        padding: 5,
-        backgroundColor: 'red'
+        justifyContent: 'flex-end',
+        // padding: 5,
+        marginTop: 30,
     },
     headerTitle: {
         fontSize: 28,
