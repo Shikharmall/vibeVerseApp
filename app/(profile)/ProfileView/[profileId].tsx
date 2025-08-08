@@ -16,6 +16,7 @@ import { Colors } from '@/constants/Colors';
 import { UserProfile } from '@/constants/Entity';
 import { getDoc, doc } from 'firebase/firestore';
 import { db } from '../../../assets/firebaseConfig';
+import ZoomingIcon from '@/components/ui/ZoomingIcon';
 
 export default function ProfileView() {
     const navigation = useNavigation();
@@ -85,7 +86,7 @@ export default function ProfileView() {
 
                     {/* <Text>{profileId}</Text> */}
                     <Text style={styles.profileName}>{profileData?.name}</Text>
-                    <Text style={styles.profileEmail}>{profileData?.email}</Text>
+                    <Text style={styles.profileEmail}>{profileData?.email || "-"}</Text>
 
                     <TouchableOpacity style={styles.editButton}>
                         <MaterialIcons name="edit" size={16} color={Colors.white} />
@@ -96,7 +97,8 @@ export default function ProfileView() {
 
             <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
                 <View style={styles.successMessage}>
-                    <MaterialIcons name="check-circle" size={24} color={Colors.green} />
+                    {/* <MaterialIcons name="check-circle" size={24} color={Colors.green} /> */}
+                    <ZoomingIcon />
                     <Text style={styles.successText}>Profile Created Successfully!</Text>
                     <Text style={styles.successSubtext}>
                         Your profile has been saved and is ready to use.

@@ -19,10 +19,16 @@ import { UserProfile } from '@/constants/Entity';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../assets/firebaseConfig';
 import { router } from 'expo-router';
-import { isValidEmail, isValidWebsite } from '@/constants/Validation';
+import { isValidEmail, isValidPhone, isValidWebsite } from '@/constants/Validation';
 
 export default function CreateProfile() {
+
     const navigation = useNavigation();
+
+    const [loading, setLoading] = useState(false);
+    const [isErrorEmail, setIsErrorEmail] = useState(false);
+    const [isErrorPhone, setIsErrorPhone] = useState(false);
+
     const [formData, setFormData] = useState<UserProfile>({
         name: '',
         email: '',
@@ -33,11 +39,20 @@ export default function CreateProfile() {
         avatar: 'https://avatar.iran.liara.run/public/92',
         joinDate: ''
     });
-    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async () => {
         if (!formData.name || !formData.email) {
-            Alert.alert('Error', 'Please fill in at least your name and email');
+            Alert.alert('Error', 'Please fill in at least your name and email.');
+            return;
+        }
+
+        if (!isValidEmail(formData?.email)) {
+            Alert.alert('Error', 'Please fill correct email.');
+            return;
+        }
+
+        if (formData?.phone !== "" && !isValidPhone(formData?.phone)) {
+            Alert.alert('Error', 'Please fill correct phone number.');
             return;
         }
 
@@ -73,10 +88,6 @@ export default function CreateProfile() {
         } finally {
             setLoading(false);
         }
-    };
-
-    const navigateToProfile = () => {
-        navigation.navigate('ProfileView' as never);
     };
 
     return (
@@ -134,7 +145,12 @@ export default function CreateProfile() {
                                 placeholder="Email Address *"
                                 placeholderTextColor="#a0aec0"
                                 value={formData?.email}
-                                onChangeText={(text: string) => setFormData({ ...formData, email: text })}
+                                onChangeText={(text: string) => {
+
+                                    setFormData({ ...formData, email: text });
+                                    const check = isValidEmail(text);
+
+                                }}
                                 keyboardType="email-address"
                             />
                         </View>
@@ -144,8 +160,8 @@ export default function CreateProfile() {
                         <View style={styles.inputWrapper}>
                             <MaterialIcons name='call' size={20} color={Colors.icon.color} style={styles.inputIcon} />
                             <TextInput
-                                style={[styles.input]}
-                                placeholder="Phone Number"
+                                style={[styles.input, { color: isValidPhone(formData?.phone) ? '#2d3748' : 'red' }]}
+                                placeholder="Phone Number (IND)"
                                 placeholderTextColor="#a0aec0"
                                 value={formData?.phone}
                                 onChangeText={(text: string) => setFormData({ ...formData, phone: text })}
@@ -153,7 +169,6 @@ export default function CreateProfile() {
                             />
                         </View>
                     </View>
-
 
                     <View style={styles.inputContainer}>
                         <View style={styles.inputWrapper}>
@@ -214,7 +229,7 @@ export default function CreateProfile() {
                     </TouchableOpacity>
 
                     <Text style={styles.requiredText}>* Required fields</Text>
-                    
+
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -318,5 +333,6 @@ const styles = StyleSheet.create({
         color: '#718096',
         textAlign: 'center',
         marginTop: 10,
+        marginBottom: 30
     },
 });
