@@ -12,7 +12,20 @@
 
    ```bash
    npm install
-   ```    
+   ```
+
+3. Set env file (add your firebase credentials)
+
+   ```bash
+   EXPO_PUBLIC_API_KEY=""
+   EXPO_PUBLIC_AUTH_DOMAIN=""
+   EXPO_PUBLIC_PROJECT_ID=""
+   EXPO_PUBLIC_STORAGE_BUCKET=""
+   EXPO_PUBLIC_MESSAGING_SENDER_ID=""
+   EXPO_PUBLIC_APP_ID=""
+   EXPO_PUBLIC_MEASUREMENT_ID=""
+   ```
+   
 3. Start the app
 
    ```bash
