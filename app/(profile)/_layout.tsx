@@ -3,10 +3,21 @@ import 'react-native-reanimated';
 
 export default function RootLayout() {
     return (
-        <Stack>
-            <Stack.Screen name="CreateProfile" options={{ headerShown: false }} />
-            <Stack.Screen name="ProfileView" options={{ headerShown: false }} />
-            <Stack.Screen name="ProfileCard" options={{ headerShown: false }} />
-        </Stack>
+        <Stack
+            screenOptions={{
+                headerShown: false,
+            }}
+        />
     );
 }
+
+
+/*
+
+<Stack>
+    <Stack.Screen name="CreateProfile" options={{ headerShown: false }} />
+     <Stack.Screen name="ProfileView/[profileId]" options={{ headerShown: false }} />
+     <Stack.Screen name="ProfileCard" options={{ headerShown: false }} />
+</Stack>
+        
+*/

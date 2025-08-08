@@ -16,24 +16,26 @@ import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from '@/constants/Colors';
 import { UserProfile } from '@/constants/Entity';
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../../assets/firebaseConfig';
+import { router } from 'expo-router';
+import { isValidEmail, isValidWebsite } from '@/constants/Validation';
 
 export default function CreateProfile() {
     const navigation = useNavigation();
     const [formData, setFormData] = useState<UserProfile>({
-        id: '555',
         name: '',
         email: '',
         phone: '',
-        bio: '',
         location: '',
+        bio: '',
         website: '',
         avatar: 'https://avatar.iran.liara.run/public/92',
-        joinDate: '555'
+        joinDate: ''
     });
     const [loading, setLoading] = useState(false);
 
     const handleSubmit = async () => {
-        // Validate form
         if (!formData.name || !formData.email) {
             Alert.alert('Error', 'Please fill in at least your name and email');
             return;
@@ -42,42 +44,36 @@ export default function CreateProfile() {
         setLoading(true);
 
         try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const docRef = await addDoc(collection(db, 'users'), {
+                ...formData,
+                joinDate: new Date(),
+            });
 
-            // Navigate to profile view with data
-            // navigation.navigate('ProfileView' as never, { profileData: formData } as never);
+            setFormData({
+                name: '',
+                email: '',
+                phone: '',
+                location: '',
+                bio: '',
+                website: '',
+                avatar: 'https://avatar.iran.liara.run/public/92',
+                joinDate: '',
+            })
+
+            // Alert.alert('Success', `Profile created! ID: ${docRef.id}`);
+
+            router.push({
+                pathname: '/(profile)/ProfileView/[profileId]',
+                params: { profileId: docRef?.id },
+            });
+
         } catch (error) {
+            console.error('Firestore Error:', error);
             Alert.alert('Error', 'Failed to save profile');
         } finally {
             setLoading(false);
         }
     };
-
-    const InputField = ({
-        icon: Icon,
-        placeholder,
-        value,
-        onChangeText,
-        multiline = false,
-        keyboardType = 'default' as any
-    }: any) => (
-        <View style={styles.inputContainer}>
-            <View style={styles.inputWrapper}>
-                <MaterialIcons name={Icon} size={20} color={Colors.icon.color} style={styles.inputIcon} />
-                <TextInput
-                    style={[styles.input, multiline && styles.multilineInput]}
-                    placeholder={placeholder}
-                    placeholderTextColor="#a0aec0"
-                    value={value}
-                    onChangeText={onChangeText}
-                    multiline={multiline}
-                    numberOfLines={multiline ? 3 : 1}
-                    keyboardType={keyboardType}
-                />
-            </View>
-        </View>
-    );
 
     const navigateToProfile = () => {
         navigation.navigate('ProfileView' as never);
@@ -91,15 +87,20 @@ export default function CreateProfile() {
                 end={{ x: 1, y: 1 }}
                 style={styles.header}
             >
-                <TouchableOpacity
-                    style={styles.backButton}
-                    onPress={() => navigation.goBack()}
-                >
-                    <MaterialIcons name="arrow-left" size={24} color={Colors.white} />
-                </TouchableOpacity>
 
-                <Text style={styles.headerTitle}>Create Profile</Text>
-                <Text style={styles.headerSubtitle}>Tell us about yourself</Text>
+                <View style={{}}>
+
+                    <TouchableOpacity
+                        style={styles.backButton}
+                        onPress={() => navigation.goBack()}
+                    >
+                        <MaterialIcons name="arrow-back" size={24} color={Colors.white} />
+                    </TouchableOpacity>
+
+                    <Text style={styles.headerTitle}>Create Profile</Text>
+                    <Text style={styles.headerSubtitle}>Tell us about yourself</Text>
+
+                </View>
             </LinearGradient>
 
             <KeyboardAvoidingView
@@ -111,43 +112,88 @@ export default function CreateProfile() {
                     contentContainerStyle={styles.formContent}
                     showsVerticalScrollIndicator={false}
                 >
-                    <InputField
-                        icon={'perm-identity'}
-                        placeholder="Full Name *"
-                        value={formData.name}
-                        onChangeText={(text: string) => setFormData({ ...formData, name: text })}
-                    />
 
-                    <InputField
-                        icon={'email'}
-                        placeholder="Email Address *"
-                        value={formData.email}
-                        onChangeText={(text: string) => setFormData({ ...formData, email: text })}
-                        keyboardType="email-address"
-                    />
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <MaterialIcons name='perm-identity' size={20} color={Colors.icon.color} style={styles.inputIcon} />
+                            <TextInput
+                                style={[styles.input]}
+                                placeholder="Full Name *"
+                                placeholderTextColor="#a0aec0"
+                                value={formData?.name}
+                                onChangeText={(text: string) => setFormData({ ...formData, name: text })}
+                            />
+                        </View>
+                    </View>
 
-                    <InputField
-                        icon={'call'}
-                        placeholder="Phone Number"
-                        value={formData.phone}
-                        onChangeText={(text: string) => setFormData({ ...formData, phone: text })}
-                        keyboardType="phone-pad"
-                    />
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <MaterialIcons name='email' size={20} color={Colors.icon.color} style={styles.inputIcon} />
+                            <TextInput
+                                style={[styles.input, { color: isValidEmail(formData?.email) ? '#2d3748' : 'red' }]}
+                                placeholder="Email Address *"
+                                placeholderTextColor="#a0aec0"
+                                value={formData?.email}
+                                onChangeText={(text: string) => setFormData({ ...formData, email: text })}
+                                keyboardType="email-address"
+                            />
+                        </View>
+                    </View>
 
-                    <InputField
-                        icon={'location-pin'}
-                        placeholder="Location"
-                        value={formData.location}
-                        onChangeText={(text: string) => setFormData({ ...formData, location: text })}
-                    />
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <MaterialIcons name='call' size={20} color={Colors.icon.color} style={styles.inputIcon} />
+                            <TextInput
+                                style={[styles.input]}
+                                placeholder="Phone Number"
+                                placeholderTextColor="#a0aec0"
+                                value={formData?.phone}
+                                onChangeText={(text: string) => setFormData({ ...formData, phone: text })}
+                                keyboardType="phone-pad"
+                            />
+                        </View>
+                    </View>
 
-                    <InputField
-                        icon={'assignment-ind'}
-                        placeholder="Bio - Tell us about yourself"
-                        value={formData.bio}
-                        onChangeText={(text: string) => setFormData({ ...formData, bio: text })}
-                        multiline={true}
-                    />
+
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <MaterialIcons name='location-pin' size={20} color={Colors.icon.color} style={styles.inputIcon} />
+                            <TextInput
+                                style={[styles.input]}
+                                placeholder="Location"
+                                placeholderTextColor="#a0aec0"
+                                value={formData?.location}
+                                onChangeText={(text: string) => setFormData({ ...formData, location: text })}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <MaterialIcons name='web' size={20} color={Colors.icon.color} style={styles.inputIcon} />
+                            <TextInput
+                                style={[styles.input, { color: isValidWebsite(formData?.website) ? '#2d3748' : 'red' }]} //, { color: isValidURL(formData?.website) ? '#2d3748' : 'red' }
+                                placeholder="Enter website"
+                                placeholderTextColor="#a0aec0"
+                                value={formData?.website}
+                                onChangeText={(text: string) => setFormData({ ...formData, website: text })}
+                            />
+                        </View>
+                    </View>
+
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <MaterialIcons name='assignment-ind' size={20} color={Colors.icon.color} style={styles.inputIcon} />
+                            <TextInput
+                                style={[styles.input]}
+                                placeholder="Bio - Tell us about yourself"
+                                placeholderTextColor="#a0aec0"
+                                value={formData?.bio}
+                                onChangeText={(text: string) => setFormData({ ...formData, bio: text })}
+                                multiline={true}
+                            />
+                        </View>
+                    </View>
 
                     <TouchableOpacity
                         style={[styles.submitButton, loading && styles.submitButtonDisabled]}
@@ -156,8 +202,7 @@ export default function CreateProfile() {
                         activeOpacity={0.8}
                     >
                         <LinearGradient
-                            // colors={['#667eea', '#764ba2']}
-                            colors={['#e145a2', '#9834e4']}
+                            colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 1 }}
                             style={styles.submitGradient}
@@ -169,25 +214,7 @@ export default function CreateProfile() {
                     </TouchableOpacity>
 
                     <Text style={styles.requiredText}>* Required fields</Text>
-
-                    <TouchableOpacity
-                        style={[styles.submitButton, loading && styles.submitButtonDisabled]}
-                        onPress={navigateToProfile}
-                        disabled={loading}
-                        activeOpacity={0.8}
-                    >
-                        <LinearGradient
-                            colors={['#667eea', '#764ba2']}
-                            // colors={['#e145a2', '#9834e4']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 1 }}
-                            style={styles.submitGradient}
-                        >
-                            <Text style={styles.submitText}>
-                                Profile View
-                            </Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
+                    
                 </ScrollView>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -208,8 +235,9 @@ const styles = StyleSheet.create({
     },
     backButton: {
         alignSelf: 'flex-start',
-        marginBottom: 20,
+        marginBottom: 8,
         padding: 5,
+        backgroundColor: 'red'
     },
     headerTitle: {
         fontSize: 28,

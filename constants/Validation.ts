@@ -8,4 +8,9 @@ const isValidPhone = (phone: string): boolean => {
     return phoneRegex.test(phone);
 };
 
-export { isValidEmail, isValidPhone };
+const isValidWebsite = (website: string): boolean => {
+    const pattern = /^(https?:\/\/)?(www\.)?([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}(\:[0-9]{1,5})?(\/.*)?$/;
+    return pattern.test(website);
+};
+
+export { isValidEmail, isValidPhone, isValidWebsite };

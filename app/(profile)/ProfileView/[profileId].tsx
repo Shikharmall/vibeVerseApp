@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -9,27 +9,40 @@ import {
     Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { useLocalSearchParams } from 'expo-router';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { Colors } from '@/constants/Colors';
 import { UserProfile } from '@/constants/Entity';
-
+import { getDoc, doc } from 'firebase/firestore';
+import { db } from '../../../assets/firebaseConfig';
 
 export default function ProfileView() {
     const navigation = useNavigation();
-    // const route = useRoute();
-    // const { profileData } = route.params as { profileData: UserProfile };
-    const profileData: UserProfile = {
-        id: '555',
-        name: 'Shivam Gupta',
-        email: 'shivam@gmail.com',
-        phone: '9885967896',
-        bio: 'SDE',
-        location: 'Gorakhpur',
-        website: 'www.shivam.com',
-        avatar: 'https://avatar.iran.liara.run/public/92',
-        joinDate: 'Nov, 2025'
-    }
+    const { profileId } = useLocalSearchParams();
+
+    const [profileData, setProfileData] = useState<UserProfile | null>(null);
+
+    const fetchProfile = async () => {
+        try {
+            const profileRef = doc(db, 'users', profileId as string);
+            const profileSnap = await getDoc(profileRef);
+
+            if (profileSnap.exists()) {
+                setProfileData(profileSnap.data() as UserProfile);
+            } else {
+                console.warn('No such profile found!');
+            }
+        } catch (error) {
+            console.error('Error fetching profile:', error);
+        }
+    };
+
+    useEffect(() => {
+        if (profileId) {
+            fetchProfile();
+        }
+    }, [profileId]);
 
     const InfoItem = ({ icon: Icon, label, value }: any) => {
         if (!value) return null;
@@ -64,14 +77,15 @@ export default function ProfileView() {
 
                 <View style={styles.profileHeader}>
                     <View style={styles.avatarContainer}>
-                        <Image source={{ uri: profileData.avatar }} style={styles.avatar} />
+                        <Image source={{ uri: profileData?.avatar }} style={styles.avatar} />
                         <View style={styles.successBadge}>
                             <MaterialIcons name="check-circle" size={20} color={Colors.white} />
                         </View>
                     </View>
 
-                    <Text style={styles.profileName}>{profileData.name}</Text>
-                    <Text style={styles.profileEmail}>{profileData.email}</Text>
+                    {/* <Text>{profileId}</Text> */}
+                    <Text style={styles.profileName}>{profileData?.name}</Text>
+                    <Text style={styles.profileEmail}>{profileData?.email}</Text>
 
                     <TouchableOpacity style={styles.editButton}>
                         <MaterialIcons name="edit" size={16} color={Colors.white} />
@@ -95,25 +109,25 @@ export default function ProfileView() {
                     <InfoItem
                         icon={'email'}
                         label="Email"
-                        value={profileData.email}
+                        value={profileData?.email}
                     />
 
                     <InfoItem
                         icon={'call'}
                         label="Phone"
-                        value={profileData.phone}
+                        value={profileData?.phone}
                     />
 
                     <InfoItem
                         icon={'location-pin'}
                         label="Location"
-                        value={profileData.location}
+                        value={profileData?.location}
                     />
 
                     <InfoItem
                         icon={'assignment-ind'}
                         label="Bio"
-                        value={profileData.bio}
+                        value={profileData?.bio}
                     />
                 </View>
 
@@ -132,14 +146,6 @@ export default function ProfileView() {
                             <Text style={styles.actionButtonText}>Back to Home</Text>
                         </LinearGradient>
                     </TouchableOpacity>
-
-                    {/* <TouchableOpacity
-                        style={styles.secondaryActionButton}
-                        onPress={() => navigation.navigate('Home' as never)}
-                        activeOpacity={0.8}
-                    >
-                        <Text style={styles.secondaryActionText}>Back to Home</Text>
-                    </TouchableOpacity> */}
                 </View>
             </ScrollView>
         </SafeAreaView>

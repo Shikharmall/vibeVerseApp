@@ -19,6 +19,7 @@ import WavesIconBox from '@/components/ui/WavesIconBox';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { Colors } from '@/constants/Colors';
 import { Message } from '@/constants/Entity';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 const mockMessages: Message[] = [
     {
@@ -144,99 +145,101 @@ export default function ChatScreen() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <LinearGradient
-                colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.header}
-            >
-                <View style={styles.headerContent}>
-                    <TouchableOpacity
-                        style={styles.backButton}
-                        onPress={() => navigation.goBack()}
-                    >
-                        <MaterialIcons name="arrow-left" size={24} color={Colors.white} />
-                    </TouchableOpacity>
+        <SafeAreaProvider>
+            <SafeAreaView style={styles.container}>
+                <LinearGradient
+                    colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.header}
+                >
+                    <View style={styles.headerContent}>
+                        <TouchableOpacity
+                            style={styles.backButton}
+                            onPress={() => navigation.goBack()}
+                        >
+                            <MaterialIcons name="arrow-back" size={24} color={Colors.white} />
+                        </TouchableOpacity>
 
 
-                    <View style={styles.userInfo}>
-                        <WavesIconBox />
-                        <View style={styles.userDetails}>
-                            <Text style={styles.userStatus}>
-                                Chat with
-                            </Text>
-                            <Text style={styles.userName}>Alex</Text>
+                        <View style={styles.userInfo}>
+                            <WavesIconBox />
+                            <View style={styles.userDetails}>
+                                <Text style={styles.userStatus}>
+                                    Chat with
+                                </Text>
+                                <Text style={styles.userName}>Alex</Text>
+                            </View>
+                        </View>
+
+                        <View style={styles.headerActions}>
+                            <TouchableOpacity style={styles.actionButton}>
+                                <MaterialIcons name="call" size={30} color={Colors.white} />
+                            </TouchableOpacity>
                         </View>
                     </View>
+                </LinearGradient>
 
-                    <View style={styles.headerActions}>
-                        <TouchableOpacity style={styles.actionButton}>
-                            <MaterialIcons name="call" size={30} color={Colors.white} />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </LinearGradient>
+                <KeyboardAvoidingView
+                    style={styles.chatContainer}
+                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+                >
+                    <FlatList
+                        ref={flatListRef}
+                        data={messages}
+                        keyExtractor={(item) => item.id}
+                        renderItem={renderMessage}
+                        style={styles.messagesList}
+                        contentContainerStyle={styles.messagesContainer}
+                        showsVerticalScrollIndicator={false}
+                        onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
+                    />
 
-            <KeyboardAvoidingView
-                style={styles.chatContainer}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
-            >
-                <FlatList
-                    ref={flatListRef}
-                    data={messages}
-                    keyExtractor={(item) => item.id}
-                    renderItem={renderMessage}
-                    style={styles.messagesList}
-                    contentContainerStyle={styles.messagesContainer}
-                    showsVerticalScrollIndicator={false}
-                    onContentSizeChange={() => flatListRef.current?.scrollToEnd()}
-                />
+                    {isTyping && <TypingIndicator userAvatar={userAvatar} />}
 
-                {isTyping && <TypingIndicator userAvatar={userAvatar} />}
+                    <View style={styles.inputContainer}>
+                        <View style={styles.inputWrapper}>
+                            <TouchableOpacity style={styles.attachButton}>
+                                <MaterialCommunityIcons name="paperclip" size={24} color="#555" />
+                            </TouchableOpacity>
 
-                <View style={styles.inputContainer}>
-                    <View style={styles.inputWrapper}>
-                        <TouchableOpacity style={styles.attachButton}>
-                            <MaterialCommunityIcons name="paperclip" size={24} color="#555" />
-                        </TouchableOpacity>
+                            <TextInput
+                                style={styles.textInput}
+                                value={inputText}
+                                onChangeText={setInputText}
+                                placeholder="Type a message..."
+                                placeholderTextColor="#a0aec0"
+                                multiline
+                                maxLength={1000}
+                            />
 
-                        <TextInput
-                            style={styles.textInput}
-                            value={inputText}
-                            onChangeText={setInputText}
-                            placeholder="Type a message..."
-                            placeholderTextColor="#a0aec0"
-                            multiline
-                            maxLength={1000}
-                        />
-
-                        <TouchableOpacity style={styles.emojiButton}>
-                            <MaterialCommunityIcons name="emoticon-happy-outline" size={25} color="#667eea" />
-                        </TouchableOpacity>
-                    </View>
-                    <LinearGradient
-                        colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
-                        style={[
-                            styles.sendButton,
-                            inputText.trim() && styles.sendButtonActive,
-                        ]}
-                        start={{ x: 0, y: 0 }}
-                        end={{ x: 1, y: 0 }}
-                    >
-                        <TouchableOpacity
-                            style={[styles.sendButton, inputText.trim() && styles.sendButtonActive]}
-                            onPress={sendMessage}
-                            disabled={!inputText.trim()}
-                            activeOpacity={0.8}
+                            <TouchableOpacity style={styles.emojiButton}>
+                                <MaterialCommunityIcons name="emoticon-happy-outline" size={25} color="#667eea" />
+                            </TouchableOpacity>
+                        </View>
+                        <LinearGradient
+                            colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
+                            style={[
+                                styles.sendButton,
+                                inputText.trim() && styles.sendButtonActive,
+                            ]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 0 }}
                         >
-                            <MaterialIcons name="send" size={20} color={Colors.white} />
-                        </TouchableOpacity>
-                    </LinearGradient>
-                </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+                            <TouchableOpacity
+                                style={[styles.sendButton, inputText.trim() && styles.sendButtonActive]}
+                                onPress={sendMessage}
+                                disabled={!inputText.trim()}
+                                activeOpacity={0.8}
+                            >
+                                <MaterialIcons name="send" size={20} color={Colors.white} />
+                            </TouchableOpacity>
+                        </LinearGradient>
+                    </View>
+                </KeyboardAvoidingView>
+            </SafeAreaView>
+        </SafeAreaProvider>
     );
 }
 

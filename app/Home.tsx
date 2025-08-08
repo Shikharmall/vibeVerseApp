@@ -12,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import WavesIconBox from '@/components/ui/WavesIconBox';
 import { Colors } from '@/constants/Colors';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function Home() {
     const navigation = useNavigation();
@@ -25,94 +26,94 @@ export default function Home() {
     };
 
     return (
-        <SafeAreaView style={styles.container}>
-            <LinearGradient
-                colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
-                start={{ x: 0, y: 0 }}
-                end={{ x: 1, y: 1 }}
-                style={styles.background}
-            >
-                <View style={styles.content}>
-                    <View style={styles.header}>
-                        <View style={styles.iconContainer}>
-                            {/* <Sparkles size={40} color="white" /> */}
-                            <WavesIconBox />
+        <SafeAreaProvider>
+            <SafeAreaView style={styles.container}>
+                <LinearGradient
+                    colors={[Colors.linerGradient.from, Colors.linerGradient.to]}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 1 }}
+                    style={styles.background}
+                >
+                    <View style={styles.content}>
+                        <View style={styles.header}>
+                            <View style={styles.iconContainer}>
+                                {/* <Sparkles size={40} color="white" /> */}
+                                <WavesIconBox />
+                            </View>
+                            <Text style={styles.title}>Welcome!</Text>
+                            <Text style={styles.subtitle}>
+                                Choose what you'd like to do today
+                            </Text>
                         </View>
-                        <Text style={styles.title}>Welcome!</Text>
-                        <Text style={styles.subtitle}>
-                            Choose what you'd like to do today
-                        </Text>
-                    </View>
 
-                    <View style={styles.illustration}>
-                        {/* <Image
-                            source={{ uri: '/placeholder.svg?height=200&width=200&text=Welcome' }}
-                            style={styles.illustrationImage}
-                        /> */}
-                        <Image
-                            source={{ uri: 'https://vibevers.co/lovable-uploads/pexels-katerina-holmes-5910749.jpg' }}
-                            style={styles.illustrationImage}
-                        />
-                        {/* <View style={styles.illustrationImage}>
-                            <MaterialIcons name="person" size={40} color="#ffffff" />
-                        </View> */}
-                    </View>
+                        <View style={styles.illustration}>
+                            {/* <Image
+                                    source={{ uri: '/placeholder.svg?height=200&width=200&text=Welcome' }}
+                                    style={styles.illustrationImage}
+                                /> */}
+                            <Image
+                                source={{ uri: 'https://vibevers.co/lovable-uploads/pexels-lisa-78567396-8685288.jpg' }}
+                                style={styles.illustrationImage}
+                            />
+                            {/* <View style={styles.illustrationImage}>
+                                    <MaterialIcons name="person" size={40} color="#ffffff" />
+                                </View> */}
+                        </View>
 
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity
-                            style={styles.primaryButton}
-                            onPress={navigateToProfile}
-                            activeOpacity={0.8}
-                        >
-                            <LinearGradient
-                                colors={['#48bb78', '#38a169']}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 1 }}
-                                style={styles.buttonGradient}
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity
+                                style={styles.primaryButton}
+                                onPress={navigateToProfile}
+                                activeOpacity={0.8}
                             >
-                                {/* <User size={24} color="white" style={styles.buttonIcon} /> */}
-                                <View style={styles.buttonIcon}>
-                                    <MaterialIcons name="person" size={24} color="#ffffff" />
-                                </View>
-                                <View style={styles.buttonTextContainer}>
-                                    <Text style={styles.buttonTitle}>Profile</Text>
-                                    <Text style={styles.buttonSubtitle}>Create or view your profile</Text>
-                                </View>
-                            </LinearGradient>
-                        </TouchableOpacity>
+                                <LinearGradient
+                                    colors={['#48bb78', '#38a169']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 1 }}
+                                    style={styles.buttonGradient}
+                                >
+                                    <View style={styles.buttonIcon}>
+                                        <MaterialIcons name="person" size={24} color="#ffffff" />
+                                    </View>
+                                    <View style={styles.buttonTextContainer}>
+                                        <Text style={styles.buttonTitle}>Profile</Text>
+                                        <Text style={styles.buttonSubtitle}>Create or view your profile</Text>
+                                    </View>
+                                </LinearGradient>
+                            </TouchableOpacity>
 
-                        <TouchableOpacity
-                            style={styles.primaryButton}
-                            onPress={navigateToChat}
-                            activeOpacity={0.8}
-                        >
-                            <LinearGradient
-                                colors={['#ed8936', '#dd6b20']}
-                                // colors={['#ffffff', '#ffffff']}
-                                start={{ x: 0, y: 0 }}
-                                end={{ x: 1, y: 1 }}
-                                style={styles.buttonGradient}
+                            <TouchableOpacity
+                                style={styles.primaryButton}
+                                onPress={navigateToChat}
+                                activeOpacity={0.8}
                             >
-                                {/* <MessageCircle size={24} color="white" style={styles.buttonIcon} /> */}
-                                <View style={styles.buttonIcon}>
-                                    <MaterialIcons name="chat" size={24} color="#ffffff" />
-                                </View>
-                                <View style={styles.buttonTextContainer}>
-                                    <Text style={styles.buttonTitle}>Chat with Alex</Text>
-                                    <Text style={styles.buttonSubtitle}>Start a conversation</Text>
-                                </View>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
+                                <LinearGradient
+                                    colors={['#ed8936', '#dd6b20']}
+                                    // colors={['#ffffff', '#ffffff']}
+                                    start={{ x: 0, y: 0 }}
+                                    end={{ x: 1, y: 1 }}
+                                    style={styles.buttonGradient}
+                                >
+                                    <View style={styles.buttonIcon}>
+                                        <MaterialIcons name="chat" size={24} color="#ffffff" />
+                                    </View>
+                                    <View style={styles.buttonTextContainer}>
+                                        <Text style={styles.buttonTitle}>Chat with Alex</Text>
+                                        <Text style={styles.buttonSubtitle}>Start a conversation</Text>
+                                    </View>
+                                </LinearGradient>
+                            </TouchableOpacity>
+                        </View>
 
-                    <View style={styles.footer}>
-                        <Text style={styles.footerText}>
-                            Your personal space for profiles and conversations
-                        </Text>
+                        <View style={styles.footer}>
+                            <Text style={styles.footerText}>
+                                Your personal space for profiles and conversations
+                            </Text>
+                        </View>
                     </View>
-                </View>
-            </LinearGradient>
-        </SafeAreaView>
+                </LinearGradient>
+            </SafeAreaView>
+        </SafeAreaProvider>
     );
 }
 

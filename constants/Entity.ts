@@ -17,7 +17,6 @@ export interface ChatListItemProps {
 }
 
 export interface UserProfile {
-    id: string;
     name: string;
     email: string;
     bio: string;
@@ -87,3 +86,8 @@ export interface AnimatedCardProps {
     delay?: number;
     style?: ViewStyle;
 }
+
+export type RootStackParamList = {
+  CreateProfile: undefined;
+  ProfileView: { profileId: string };
+};
