@@ -121,6 +121,7 @@ export default function ChatScreen() {
                     )
                 );
             }, 2000);
+            
         }
     };
 
@@ -240,6 +241,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: Colors.backgroundColor,
+        paddingBottom: 50,
     },
     header: {
         paddingTop: 50,
@@ -285,7 +287,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     actionButton: {
-        //marginLeft: 15,
         padding: 5,
     },
     chatContainer: {
