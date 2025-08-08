@@ -163,7 +163,7 @@ export default function ChatScreen() {
 
 
                         <View style={styles.userInfo}>
-                            <WavesIconBox />
+                            <WavesIconBox width={50} height={50} svgWidth={25} svgHeight={25}/>
                             <View style={styles.userDetails}>
                                 <Text style={styles.userStatus}>
                                     Chat with

@@ -79,6 +79,8 @@ export interface TypingIndicatorProps {
 export interface WavesIconBoxProps {
     width?: number;
     height?: number;
+    svgWidth?: number;
+    svgHeight?: number;
 }
 
 export interface AnimatedCardProps {
@@ -88,6 +90,6 @@ export interface AnimatedCardProps {
 }
 
 export type RootStackParamList = {
-  CreateProfile: undefined;
-  ProfileView: { profileId: string };
+    CreateProfile: undefined;
+    ProfileView: { profileId: string };
 };
