@@ -9,6 +9,7 @@ import {
     SafeAreaView,
     KeyboardAvoidingView,
     Platform,
+    Keyboard,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
@@ -78,6 +79,9 @@ export default function ChatScreen() {
     const [isTyping, setIsTyping] = useState(false);
     const navigation = useNavigation();
     const flatListRef = useRef<FlatList>(null);
+    const [kbBehavior, setKbBehavior] = useState<"padding" | "height" | undefined>(
+        Platform.OS === 'ios' ? 'padding' : 'height'
+    );
 
     const userAvatar = 'https://avatar.iran.liara.run/public/8';
 
@@ -121,7 +125,7 @@ export default function ChatScreen() {
                     )
                 );
             }, 2000);
-            
+
         }
     };
 
@@ -137,6 +141,20 @@ export default function ChatScreen() {
             />
         );
     };
+
+    useEffect(() => {
+        const showSub = Keyboard.addListener('keyboardDidShow', () => {
+            setKbBehavior(Platform.OS === 'ios' ? 'padding' : 'height');
+        });
+        const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+            setKbBehavior(undefined); // reset so no padding remains
+        });
+
+        return () => {
+            showSub.remove();
+            hideSub.remove();
+        };
+    }, []);
 
     return (
         <SafeAreaProvider>
@@ -176,7 +194,7 @@ export default function ChatScreen() {
 
                 <KeyboardAvoidingView
                     style={styles.chatContainer}
-                    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                    behavior={kbBehavior}
                     keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
                 >
                     <FlatList

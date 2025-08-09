@@ -6,9 +6,10 @@ import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { router } from 'expo-router';
 import { addDoc, collection } from 'firebase/firestore';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Alert,
+    Keyboard,
     KeyboardAvoidingView,
     Platform,
     SafeAreaView,
@@ -24,8 +25,10 @@ import { db } from '../../utils/firebaseConfig';
 export default function CreateProfile() {
 
     const navigation = useNavigation();
-
     const [loading, setLoading] = useState(false);
+    const [kbBehavior, setKbBehavior] = useState<"padding" | "height" | undefined>(
+        Platform.OS === 'ios' ? 'padding' : 'height'
+    );
 
     const [formData, setFormData] = useState<UserProfile>({
         name: '',
@@ -93,6 +96,20 @@ export default function CreateProfile() {
         }
     };
 
+    useEffect(() => {
+        const showSub = Keyboard.addListener('keyboardDidShow', () => {
+            setKbBehavior(Platform.OS === 'ios' ? 'padding' : 'height');
+        });
+        const hideSub = Keyboard.addListener('keyboardDidHide', () => {
+            setKbBehavior(undefined); // reset so no padding remains
+        });
+
+        return () => {
+            showSub.remove();
+            hideSub.remove();
+        };
+    }, []);
+
     return (
         <SafeAreaView style={styles.container}>
             <LinearGradient
@@ -119,7 +136,7 @@ export default function CreateProfile() {
 
             <KeyboardAvoidingView
                 style={styles.formContainer}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                behavior={kbBehavior}
             >
                 <ScrollView
                     style={styles.form}
